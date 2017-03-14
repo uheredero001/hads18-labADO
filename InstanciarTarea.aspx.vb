@@ -32,14 +32,16 @@ Public Class WebForm3
     End Sub
 
     Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        dap = Session("adaptador")
+        dst = Session("dataSet")
+        DataTable = dst.Tables("TareasInstanciadas")
         Dim row As DataRow = DataTable.NewRow()
         row("Email") = Session("user").ToString
         row("CodTarea") = Label1.Text
         row("HEstimadas") = Integer.Parse(Label3.Text)
         row("HReales") = Integer.Parse(TextBox1.Text)
         DataTable.Rows.Add(row)
-        dap = Session("adaptador")
-        dst = Session("dataSet")
         dap.Update(dst, "TareasInstanciadas")
         dst.AcceptChanges()
         GridView1.DataSource = DataTable
